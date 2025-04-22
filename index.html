@@ -1,0 +1,496 @@
+"<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Function</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+  /* Общий стиль меню */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.menu {
+  display: flex;
+  gap: 25px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.menu a:hover {
+  color: #ff6600;
+}
+
+/* Бургер-меню */
+.menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+/* Адаптив для мобилок */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  #menu-toggle:checked + .menu-icon + .menu {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+body {
+  padding-top: 70px; /* чтобы не перекрывалось контентом */
+}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(to bottom, #f2f2f2, #ffffff);
+      color: #1a1a1a;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-weight: 800; margin-bottom: 20px; }
+    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 60px 0; }
+
+    .btn {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .btn:hover { background: #000; transform: scale(1.05); }
+
+    header {
+      background: linear-gradient(135deg, #dff0ea, #f9f9f9);
+      padding: 30px 0 100px;
+      animation: fadeIn 1.5s ease;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      text-decoration: none;
+      color: #000;
+    }
+    .nav {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #1a1a1a;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .nav a:hover { color: #000; text-decoration: underline; }
+
+    .header-content {
+      text-align: center;
+      margin-top: 80px;
+    }
+    .header-content h1 { font-size: 48px; margin-bottom: 20px; animation: fadeInUp 1s ease; }
+    .header-content p { font-size: 18px; margin-bottom: 30px; animation: fadeInUp 1.3s ease; }
+
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid #eee;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    .card i {
+      display: block;
+      margin: 0 auto 10px;
+      width: 32px;
+      height: 32px;
+      color: #1a1a1a;
+    }
+
+    .steps-list {
+      list-style: decimal;
+      padding-left: 40px;
+      font-size: 18px;
+    }
+    .pricing-table {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .price-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    .price-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .faq-item h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .faq-item p {
+      display: none;
+      margin: 0;
+    }
+    .faq-item.active p {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.modal-overlay.show {
+  display: flex;
+}
+
+    .modal {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    footer {
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .header-content h1 { font-size: 36px; }
+      .header-content p { font-size: 16px; }
+      .grid-3, .pricing-table {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head> <style>
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: black;
+  animation: blink-text 1s infinite;
+}
+
+@keyframes blink-text {
+  0%, 100% {
+    color: black;
+  }
+  50% {
+    color: white;
+  }
+}
+</style>
+<body>
+
+  <header class="navbar">
+  <div class="logo">Function.kg</div>
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+  <nav class="menu">
+    <a href="#advantages">Преимущества</a>
+    <a href="#steps">Этапы</a>
+    <a href="#pricing">Тарифы</a>
+    <a href="#faq"> FAQ</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+</header>
+    </div>
+    <div class="header-content">
+      <h1>Разработка сайтов на «JavaScript»</h1>
+      <p>Создаем стильные и адаптивные сайты под ключ!</p>
+      <button class="btn" onclick="toggleModal()">Оставить заявку</button>
+    </div>
+  </header>
+
+  <section id="benefits" class="container">
+    <h2>Почему именно мы?</h2>
+    <div class="grid-3">
+      <div class="card"><i data-lucide="layout-dashboard"></i> Индивидуальный дизайн</div>
+      <div class="card"><i data-lucide="zap"></i> Быстрое выполнение</div>
+      <div class="card"><i data-lucide="smartphone"></i> Адаптивность под всё</div>
+    </div>
+  </section>
+  <section id="about" class="container">
+  <h2>О нас</h2>
+  <div style="display: flex; align-items: center; gap: 30px; flex-wrap: wrap;">
+    <i data-lucide="users" style="width: 48px; height: 48px; color: #1a1a1a; animation: fadeInUp 1s ease;"></i>
+    <div style="flex: 1; animation: fadeInUp 1.2s ease;">
+      <p>
+        Мы — команда веб-мастеров, которые с 2020 года превращают идеи в стильные, адаптивные и работающие как часы сайты.
+Мы не колдуны (хотя иногда кажется, что да), просто любим свою работу и знаем, как сделать так, чтобы ваш сайт действительно работал — быстро, красиво и по делу.
+</p>Работаем чётко: договор, сроки, результат. И, конечно, с душой — ведь каждый проект для нас как новый уровень в игре, который мы обязательно проходим на 100%.
+Поддержка? Всегда на связи, даже после релиза — как хорошие разработчики, не исчезаем после кнопки "Готово".
+      <p>
+        
+      </p>
+    </div>
+  </div>
+</section>
+
+  <section id="steps" class="container">
+    <h2>Как мы работаем?</h2>
+    <ol class="steps-list">
+      <li>Анализ и стратегия
+Погружаемся в ваш бизнес, изучаем цели, аудиторию и конкурентов. Формируем чёткое техническое задание и стратегию разработки.</li>
+      <li>UX-прототип и дизайн
+Создаём логичную структуру сайта и продумываем пользовательский путь. После согласования прототипа — разрабатываем современный, стильный и адаптивный дизайн.</li>
+      <li>Верстка и разработка
+Переводим дизайн в чистый, семантический HTML/CSS-код с анимациями и адаптацией под все устройства. Подключаем формы, Telegram-бота и необходимый функционал.</li>
+      <li>Тестирование и запуск
+Тестируем сайт на всех устройствах и браузерах, устраняем недочёты. Настраиваем домен, хостинг и публикуем проект.</li>
+<iv>Поддержка и развитие
+После запуска остаёмся с вами на связи: бесплатно вносим мелкие правки и предлагаем техническое сопровождение и обновления по запросу.</iv>
+    </ol>
+  </section>
+
+  <section id="pricing" class="container">
+    <h2>Тарифы</h2>
+    <div class="pricing-table">
+      <div class="price-card"><h3>Лендинг</h3><p>от 15 000c</p></div>
+      <div class="price-card"><h3>Сайт</h3><p>от 30 000c</p></div>
+      <div class="price-card"><h3>Магазин</h3><p>от 50 000c</p></div>
+    </div>
+  </section>
+
+  <section id="faq" class="container">
+    <h2>Частые вопросы</h2>
+    <div class="faq-list">
+      <div class="faq-item"><h3>Сроки?</h3><p>Сроки выполнения зависят от типа сайта и его функционала. Простой лендинг мы можем сделать за 2–3 дня. Если нужен полноценный сайт с несколькими страницами, формами и анимациями — обычно уходит от 5 до 7 рабочих дней. Сроки всегда обговариваются заранее и прописываются в договоре.</p></div>
+      <div class="faq-item"><h3>Оплата?</h3><p>Оплата производится в два этапа: 50% перед началом работ и 50% после сдачи проекта. При необходимости возможна поэтапная оплата. Принимаем оплату картой, наличными или через электронные переводы (например, Elsom, Банковский перевод и т.д.). Все условия фиксируются в договоре.</p></div>
+      <div class="faq-item"><h3>Поддержка?</h3><p>После сдачи проекта мы не пропадаем. В течение 14 дней бесплатно вносим мелкие правки и отвечаем на все вопросы. Также можем предложить долгосрочную поддержку и обновления сайта по договоренности. Наша цель — чтобы сайт работал стабильно и приносил результат.</p></div>
+    </div>
+  </section>
+
+<section id="contact" class="container">
+  <h2>Связаться с нами</h2>
+  <p>Вы можете отправить нам сообщение через форму обратной связи.</p>
+  <button class="btn" onclick="toggleModal()">Оставить заявку</button>
+</section>
+
+  <footer>
+    <p>&copy; 2025 Function.kg. Все права защищены.</p>
+    <p><i data-lucide="phone"></i> <a href="tel:+996507331603">+996 (507) 331-603</a></p>
+    <p><i data-lucide="mail"></i> <a href="mailto:function.kg@gmail.com">function.kg@gmail.com</a></p>
+  </footer>
+
+  <!-- Модальное окно -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h2>Оставить заявку</h2>
+      <form class="contact-form" id="tg-form">
+        <input type="text" name="name" placeholder="Ваше имя" required />
+        <input type="number" name="number" placeholder="number" required />
+        <textarea name="message" rows="4" placeholder="Ваше сообщение" required></textarea>
+        <button type="submit" class="btn">Отправить</button>
+        <p id="response" style="color: green;"></p>
+      </form>
+      <button class="btn" onclick="toggleModal()">Закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Telegram форма
+    const TOKEN = '8034144814:AAFWcrLgygIxbrdXymwoNiFjEcYSuQhIzR4';
+    const CHAT_ID = '7521102948';
+
+    document.getElementById('tg-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const name = form.name.value.trim();
+      const number = form.number.value.trim();
+      const message = form.message.value.trim();
+
+      const text = `Заявка с сайта:\nИмя: ${name}\n: ${number}\nСообщение: ${message}`;
+
+      fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+      }).then(res => res.json()).then(data => {
+        document.getElementById('response').innerText = 'Заявка отправлена скоро наши специалисты свяжется с вами!';
+      form.reset();
+    })
+    .catch(err => {
+        if (data.ok) {
+          form.reset();
+        } else {
+          document.getElementById('response').textContent = 'Ошибка отправки.';
+        }
+      }).catch(() => {
+        document.getElementById('response').textContent = 'Ошибка подключения.';
+      });
+    });
+
+    // Появление по скроллу
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // FAQ toggle
+    document.querySelectorAll('.faq-item h3').forEach(item => {
+      item.addEventListener('click', () => {
+        item.parentElement.classList.toggle('active');
+      });
+    });
+
+    // Модальное окно
+    function toggleModal() {
+      document.getElementById('modal').classList.toggle('show');
+    }
+  </script>
+</body>
+</html>"
